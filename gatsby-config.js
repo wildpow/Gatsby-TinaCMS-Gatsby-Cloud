@@ -86,8 +86,7 @@ module.exports = {
           {
             resolve: "gatsby-tinacms-git",
             options: {
-              ...
-              sshKey: process.env.SSH_KEY
+              sshKey: process.env.SSH_KEY,
             },
           },
         ],
