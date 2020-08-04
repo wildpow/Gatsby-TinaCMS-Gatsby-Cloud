@@ -83,7 +83,13 @@ module.exports = {
         enabled: process.env.NODE_ENV !== "production",
         sidebar: true,
         plugins: [
-          // We'll add some gatsby-tinacms plugins later
+          {
+            resolve: "gatsby-tinacms-git",
+            options: {
+              ...
+              sshKey: process.env.SSH_KEY
+            },
+          },
         ],
       },
     },
