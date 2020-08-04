@@ -1,37 +1,38 @@
 import React from "react"
 import { Link, graphql } from "gatsby"
-import { useForm, usePlugin } from "tinacms"
+// import { useForm, usePlugin } from "tinacms"
 import Bio from "../components/bio"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { rhythm, scale } from "../utils/typography"
+import { remarkForm } from "gatsby-tinacms-remark"
 
 const BlogPostTemplate = ({ data, pageContext, location }) => {
-  // const post = data.markdownRemark
+  const post = data.markdownRemark
   const siteTitle = data.site.siteMetadata.title
   const { previous, next } = pageContext
-  const formConfig = {
-    id: data.markdownRemark.id,
-    label: "Blog Post",
-    initialValues: data.markdownRemark,
-    onSubmit: values => {
-      alert(`Submitting ${values.frontmatter.title}`)
-    },
-    fields: [
-      {
-        name: "frontmatter.title",
-        label: "title",
-        component: "text",
-      },
-      {
-        name: "frontmatter.description",
-        label: "Description",
-        component: "textarea",
-      },
-    ],
-  }
-  const [post, form] = useForm(formConfig)
-  usePlugin(form)
+  // const formConfig = {
+  //   id: data.markdownRemark.id,
+  //   label: "Blog Post",
+  //   initialValues: data.markdownRemark,
+  //   onSubmit: values => {
+  //     alert(`Submitting ${values.frontmatter.title}`)
+  //   },
+  //   fields: [
+  //     {
+  //       name: "frontmatter.title",
+  //       label: "title",
+  //       component: "text",
+  //     },
+  //     {
+  //       name: "frontmatter.description",
+  //       label: "Description",
+  //       component: "textarea",
+  //     },
+  //   ],
+  // }
+  // const [post, form] = useForm(formConfig)
+  // usePlugin(form)
   return (
     <Layout location={location} title={siteTitle}>
       <SEO
@@ -99,7 +100,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
   )
 }
 
-export default BlogPostTemplate
+export default remarkForm(BlogPostTemplate)
 
 export const pageQuery = graphql`
   query BlogPostBySlug($slug: String!) {
@@ -117,6 +118,7 @@ export const pageQuery = graphql`
         date(formatString: "MMMM DD, YYYY")
         description
       }
+      ...TinaRemark
     }
   }
 `

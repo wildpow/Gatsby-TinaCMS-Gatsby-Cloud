@@ -89,6 +89,7 @@ module.exports = {
               sshKey: process.env.SSH_KEY,
             },
           },
+          "gatsby-tinacms-remark",
         ],
       },
     },
